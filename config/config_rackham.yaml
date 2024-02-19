@@ -1,0 +1,14 @@
+samples: "config/samples.tsv"
+units: "config/units.tsv"
+
+reference: 
+	fasta:/proj/naiss2024-22-121/pb_longread_pipeline/references/Hg38/ncbi_dataset/data/GCF_000001405.26/GCF_000001405.26_GRCh30_genomic.fna
+
+fastqc:
+	container: "docker://hydragenetics/fastqc:0.11.9"
+
+pbmm2:
+	container: "docker://hydragenetics/pbmm2:1.10" 
+
+hifiasm:
+	container: "docker://sarahstina/hifiasm:latest"

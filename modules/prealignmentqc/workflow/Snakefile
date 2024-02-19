@@ -6,7 +6,7 @@ __license__ = "GPL-3"
 
 # Include pipeline specific rules
 include: "rules/common.smk"
-
+include: "rules/fastqc.smk"
 
 # 'All' rule, must be specified before any other modules are
 # included, since they also contain 'All' rule
@@ -14,5 +14,3 @@ rule all:
     input:
         compile_output_file_list,
 
-
-# Include modules

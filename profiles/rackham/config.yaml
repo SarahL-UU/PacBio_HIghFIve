@@ -1,0 +1,13 @@
+jobs: 100
+keep-going: True
+max-jobs-per-second: 100
+max-status-checks-per-second: 100
+use-singularity: True
+snakefile: "workflow/Snakefile"
+configfile: "config/config_rackham.yaml"
+drmaa: "-A naiss2024-22-121 -J {rule} -e slurm/{rule}_%j.err -o slurm/{rule}_%j.out"
+drmaa-log-dir: "slurm"
+singularity_args: "--cleanenv --bind /Paths --disable-cache --nv"
+singularity-prefix: "/proj/naiss2024-22-121/pb_longread_pipeline/singularity_files"
+wrapper-prefix: "git+file://proj/naiss2024-22-121/pb_longread_pipeline/snakemake-wrappers"
+

@@ -10,5 +10,7 @@ fastqc:
 pbmm2:
 	container: "docker://hydragenetics/pbmm2:1.10" 
 
-hifiasm:
-	container: "docker://sarahstina/hifiasm:latest"
+mosdepth:
+	container: "docker://hydragenetics/mosdepth:0.3.2"
+	by: "500"
+	extra: "--fast-mode --no-per-base "

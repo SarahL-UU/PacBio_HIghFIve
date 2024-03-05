@@ -1,0 +1,13 @@
+$schema: "http://json-schema.org/draft-04/schema#"
+description: snakemake configuration file
+type: object
+properties:
+  resources:
+    type: string
+    description: Path to resources.yaml file
+  samples:
+    type: string
+    description: Path to samples.tsv file
+  units:
+    type: string
+    description: Path to units.tsv file

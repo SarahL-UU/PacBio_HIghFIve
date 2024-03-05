@@ -1,2 +1,2 @@
 sample	platform	fastq
-NA12878_GIAB	PacBio	/proj/naiss2024-22-121/pb_longread_pipeline/Raw_data/SRR9001768/NA12878_GIAB.fastq
+NA12878_GIAB.sub	PacBio	/proj/naiss2024-22-121/pb_longread_pipeline/Raw_data/SRR9001768/NA12878_GIAB.subsample.fastq

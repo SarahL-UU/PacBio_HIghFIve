@@ -1,0 +1,179 @@
+#output: "/proj/naiss2024-22-121/pb_longread_pipeline/PacBio_HIghFIve/config/output_list.json"
+#snakefile: "/proj/naiss2024-22-121/pb_longread_pipeline/PacBio_HIghFIve/workflow/Snakefile"
+#resources: "/proj/naiss2024-22-121/pb_longread_pipeline/PacBio_HIghFIve/config/resources.yaml"
+
+include: "/proj/naiss2024-22-121/pb_longread_pipeline/PacBio_HIghFIve/workflow/rules/common.smk"
+
+report: "/proj/naiss2024-22-121/pb_longread_pipeline/PacBio_HIghFIve/report/workflow.rst"
+
+#rule all:
+#    input:
+#        "images/dag.svg"
+
+rule all:
+    input:
+        unpack(compile_output_list),
+
+rule fastQC_prealignment:
+    input:
+        "/proj/naiss2024-22-121/pb_longread_pipeline/Raw_data/SRR9001768/NA12878_GIAB.subsample.fastq"
+    output:
+        html="qc/fastqc/{sample}.html",
+        zip="qc/fastqc/{sample}_fastqc.zip" # the suffix _fastqc.zip is necessary for multiqc to find the file. If not using multiqc, you are free to choose an arbitrary filename
+    params:
+    log:
+        "logs/fastqc/{sample}.log"
+    threads: 1
+    wrapper:
+        "/proj/naiss2024-22-121/pb_longread_pipeline/snakemake-wrappers/bio/fastqc"
+
+rule pbmm2_align:
+    input:
+        reference="/proj/naiss2024-22-121/pb_longread_pipeline/references/Hg38/ncbi_dataset/data/GCF_000001405.26/GCF_000001405.26_GRCh38_genomic.fna", # can be either genome index or genome fasta
+        query="/proj/naiss2024-22-121/pb_longread_pipeline/Raw_data/SRR9001768/NA12878_GIAB.subsample.fastq", # can be either unaligned bam, fastq, or fasta
+    output:
+        bam="aligned/{sample}.sorted.Hg38.bam",
+        index="aligned/{sample}.sorted.Hg38.bam.bai",
+    log:
+        "logs/pbmm2_align/{sample}.sorted.Hg38.bam.log",
+    params:
+        preset="HIFI", # SUBREAD, CCS, HIFI, ISOSEQ, UNROLLED
+        sample="{sample}", # sample name for @RG header
+        extra="--sort", # optional additional args
+        loglevel="INFO",
+    threads: 8
+    wrapper:
+        "/proj/naiss2024-22-121/pb_longread_pipeline/snakemake-wrappers/bio/pbmm2/align"
+rule hifiasm:
+    input:
+        fasta=[
+            "/proj/naiss2024-22-121/pb_longread_pipeline/Raw_data/SRR9001768/NA12878_GIAB.subsample.fastq",
+        ],
+    output:
+        multiext(
+            "hifiasm/{sample}.",
+            "a_ctg.gfa",
+            "a_ctg.lowQ.bed",
+            "a_ctg.noseq.gfa",
+            "p_ctg.gfa",
+            "p_ctg.lowQ.bed",
+            "p_ctg.noseq.gfa",
+            "p_utg.gfa",
+            "p_utg.lowQ.bed",
+            "p_utg.noseq.gfa",
+            "r_utg.gfa",
+            "r_utg.lowQ.bed",
+            "r_utg.noseq.gfa",
+        ),
+    log:
+        "logs/hifiasm/{sample}.log",
+    params:
+        extra="--primary -f 37 -l 1 -s 0.75 -O 1",
+    threads: 10
+    resources:
+        mem_mb=1024,
+    wrapper:
+        "/proj/naiss2024-22-121/pb_longread_pipeline/snakemake-wrappers/bio/hifiasm"
+
+rule mosdepth:
+    input:
+        bam="aligned/{sample}.sorted.Hg38.bam",
+        bai="aligned/{sample}.sorted.Hg38.bam.bai",
+    output:
+        "mosdepth/{sample}.mosdepth.global.dist.txt",
+        "mosdepth/{sample}.per-base.bed.gz",  # produced unless --no-per-base specified
+        summary="mosdepth/{sample}.mosdepth.summary.txt",  # this named output is required for prefix parsing
+    log:
+        "logs/mosdepth/{sample}.log",
+    params:
+        extra="--fast-mode",  # optional
+    # additional decompression threads through `--threads`
+    threads: 4  # This value - 1 will be sent to `--threads`
+    wrapper:
+        "/proj/naiss2024-22-121/pb_longread_pipeline/snakemake-wrappers/bio/mosdepth"
+
+rule samtools_stats:
+    input:
+        bam="aligned/{sample}.sorted.Hg38.bam",
+    output:
+        "samtools_stats/{sample}.txt",
+    params:
+        extra="",  # Optional: extra arguments.
+        region="",  # Optional: region string.
+    log:
+        "logs/samtools_stats/{sample}.log",
+    wrapper:
+        "/proj/naiss2024-22-121/pb_longread_pipeline/snakemake-wrappers/bio/samtools/stats"
+
+rule picard_collectalignmentsummarymetrics:
+    input:
+        ref="/proj/naiss2024-22-121/pb_longread_pipeline/references/Hg38/ncbi_dataset/data/GCF_000001405.26/GCF_000001405.26_GRCh38_genomic.fna",
+        bam="aligned/{sample}.sorted.Hg38.bam",
+    output:
+        "/picard/collectalignmentsummarymetrics/{sample}.sorted.Hg38.bam.summary.txt",
+    log:
+        "logs/picard/collectalignmentsummarymetrics/{sample}.sorted.Hg38.bam.picard.alignmentmetrics.log",
+    params:
+        # optional parameters (e.g. relax checks as below)
+        extra="--VALIDATION_STRINGENCY LENIENT --METRIC_ACCUMULATION_LEVEL null --METRIC_ACCUMULATION_LEVEL SAMPLE",
+    # optional specification of memory usage of the JVM that snakemake will respect with global
+    # resource restrictions (https://snakemake.readthedocs.io/en/latest/snakefiles/rules.html#resources)
+    # and which can be used to request RAM during cluster job submission as `{resources.mem_mb}`:
+    # https://snakemake.readthedocs.io/en/latest/executing/cluster.html#job-properties
+    resources:
+        mem_mb=1024,
+    wrapper:
+        "/proj/naiss2024-22-121/pb_longread_pipeline/snakemake-wrappers/bio/picard/collectalignmentsummarymetrics"
+
+rule picard_collectgcbiasmetrics:
+    input:
+        # BAM aligned to reference genome
+        bam="aligned/{sample}.sorted.Hg38.bam",
+        # reference genome FASTA from which GC-context is inferred
+        ref="/proj/naiss2024-22-121/pb_longread_pipeline/references/Hg38/ncbi_dataset/data/GCF_000001405.26/GCF_000001405.26_GRCh38_genomic.fna",
+    output:
+        metrics="picard/collectgcbiasmetrics/{sample}.sorted.Hg38.bam.gcmetrics.txt",
+        chart="picard/collectgcbiasmetrics/{sample}.sorted.Hg38.bam.gc.pdf",
+        summary="picard/collectgcbiasmetrics/{sample}.sorted.Hg38.bam.summary.txt",
+    params:
+        # optional additional parameters, for example,
+        extra="--MINIMUM_GENOME_FRACTION 1E-5",
+    log:
+        "logs/picard/collectgcbiasmetrics/{sample}.sorted.Hg38.bam.gcmetrics.log",
+    # optional specification of memory usage of the JVM that snakemake will respect with global
+    # resource restrictions (https://snakemake.readthedocs.io/en/latest/snakefiles/rules.html#resources)
+    # and which can be used to request RAM during cluster job submission as `{resources.mem_mb}`:
+    # https://snakemake.readthedocs.io/en/latest/executing/cluster.html#job-properties
+    resources:
+        mem_mb=1024,
+    wrapper:
+        "/proj/naiss2024-22-121/pb_longread_pipeline/snakemake-wrappers/bio/picard/collectgcbiasmetrics"
+
+rule multiqc_dir:
+    input:
+        expand("samtools_stats/{sample}.txt"),
+    output:
+        "qc/multiqc.html",
+        directory("qc/multiqc_data"),
+    params:
+        extra="--config /path/to/multiqc_config.yaml",  # Optional: extra parameters for multiqc.
+    log:
+        "logs/{sample}.multiqc.log",
+    wrapper:
+        "/proj/naiss2024-22-121/pb_longread_pipeline/snakemake-wrappers/bio/multiqc"
+
+rule deepvariant:
+    input:
+        bam="aligned/{sample}.sorted.Hg38.bam",
+        ref="/proj/naiss2024-22-121/pb_longread_pipeline/references/Hg38/ncbi_dataset/data/GCF_000001405.26/GCF_000001405.26_GRCh38_genomic.fna"
+    output:
+        vcf="calls/{sample}.sorted.Hg38.bam.vcf.gz"
+    params:
+        model="pacbio",   # {wgs, wes, pacbio, hybrid}
+        #sample_name={sample}, # optional
+        extra=""
+    threads: 2
+    log:
+        "logs/deepvariant/{sample}/{sample}.deepvariant.log"
+    wrapper:
+        "v3.3.6/bio/deepvariant"

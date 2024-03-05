@@ -1,0 +1,9 @@
+$schema: "http://json-schema.org/draft-04/schema#"
+description: row represents one dataset
+properties:
+  sample:
+    type: string
+    description: sample id
+  platform:
+    type: string
+    description: sequence platform that have been used to generate data, e.g. NextSeq

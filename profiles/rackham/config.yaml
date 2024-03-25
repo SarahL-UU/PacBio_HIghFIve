@@ -3,11 +3,11 @@ keep-going: True
 max-jobs-per-second: 100
 max-status-checks-per-second: 100
 use-singularity: True
-snakefile: "workflow/Snakefile"
-configfile: "config/config_rackham.yaml"
-drmaa: "-A naiss2024-22-121 -J {rule} -e slurm/{rule}_%j.err -o slurm/{rule}_%j.out"
+snakefile: "/proj/naiss2024-22-121/pb_longread_pipeline/PacBio_HIghFIve/workflow/Snakefile"
+configfile: "/proj/naiss2024-22-121/pb_longread_pipeline/PacBio_HIghFIve/config/config_rackham.yaml"
+drmaa: "-A naiss2024-22-121 -J {rule} -e slurm/{rule}_%j.err -o slurm/{rule}_%j.out -p {resources.partition} -t {resources.time} -n {resources.threads} --mem={resources.mem_mb} --mem-per-cpu={resources.mem_per_cpu}"
 drmaa-log-dir: "slurm"
-singularity_args: "--cleanenv --disable-cache --nv"
+singularity-args: "--cleanenv --bind /crex/proj,/proj --disable-cache --nv"
 singularity-prefix: "/proj/naiss2024-22-121/pb_longread_pipeline/singularity_files"
 wrapper-prefix: "git+file://proj/naiss2024-22-121/pb_longread_pipeline/snakemake-wrappers"
 

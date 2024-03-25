@@ -1,0 +1,5 @@
+FileNotFoundError in file /crex/proj/naiss2024-22-121/pb_longread_pipeline/PacBio_HIghFIve/workflow/rules/common.smk, line 27:
+[Errno 2] No such file or directory: 'config/resources.yaml'
+  File "/crex/proj/naiss2024-22-121/pb_longread_pipeline/PacBio_HIghFIve/workflow/Snakefile", line 2, in <module>
+  File "/crex/proj/naiss2024-22-121/pb_longread_pipeline/PacBio_HIghFIve/workflow/rules/common.smk", line 27, in <module>
+  File "/crex/proj/naiss2024-22-121/nobackup/padraic/hydra-genetics/hydra_genetics/utils/resources.py", line 12, in load_resources

@@ -1,2 +1,2 @@
-sample	platform	fastq
-NA12878_GIAB.sub	PacBio	/proj/naiss2024-22-121/pb_longread_pipeline/Raw_data/SRR9001768/NA12878_GIAB.subsample.fastq
+sample	type	platform	machine	processing_unit	barcode	methylation	bam
+HG002	T	PACBIO	NA	m84011_220902_175841_s1	NA	Yes	/proj/naiss2024-22-121/pb_longread_pipeline/Raw_data/control_samples/m84011_220902_175841_s1.hifi_reads.bam

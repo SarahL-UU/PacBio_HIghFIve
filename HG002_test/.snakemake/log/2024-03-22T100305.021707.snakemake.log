@@ -1,0 +1,19 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 100
+Job stats:
+job                       count
+----------------------  -------
+_copy_fastqc_bam              1
+all                           1
+fastQC_prealignment_qc        1
+total                         3
+
+Select jobs to execute...
+
+[Fri Mar 22 10:03:17 2024]
+Job 2: fastQC_prealignment_qc: Run fastQC on file /proj/naiss2024-22-121/pb_longread_pipeline/Raw_data/control_samples/m84011_220902_175841_s1.hifi_reads.bam.
+Reason: Missing output files: qc/fastqc/HG002_fastqc
+
+fastqc /proj/naiss2024-22-121/pb_longread_pipeline/Raw_data/control_samples/m84011_220902_175841_s1.hifi_reads.bam
+Submitted DRMAA job 2 with external jobid 45916882.

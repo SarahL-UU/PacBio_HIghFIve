@@ -1,0 +1,4 @@
+SystemExit in file /crex/proj/naiss2024-22-121/pb_longread_pipeline/PacBio_HIghFIve/workflow/rules/common.smk, line 19:
+At least one config file must be passed using --configfile/--configfiles, by command line or a profile!
+  File "/crex/proj/naiss2024-22-121/pb_longread_pipeline/PacBio_HIghFIve/workflow/Snakefile", line 2, in <module>
+  File "/crex/proj/naiss2024-22-121/pb_longread_pipeline/PacBio_HIghFIve/workflow/rules/common.smk", line 19, in <module>

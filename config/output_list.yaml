@@ -1,0 +1,19 @@
+files:
+  - name: fastqc_bam
+    output: "results/{sample}/fastqc/{sample}_fastqc.zip"
+    input: "qc/fastqc/{sample}_fastqc.zip"
+#  - name: "sorted.Hg38.bam"
+#    output: "results/{sample}/pbmm2/{sample}.sorted.Hg38.bam"
+#    input: "aligned/{sample}.sorted.Hg38.bam"
+#  - name: "sorted.Hg38.bam.bai"
+#    output: "results{sample}/pbmm2/{sample}.sorted.Hg38.bam.bai"
+#    input: "aligned/{sample}.sorted.Hg38.bam.bai"
+#  - name: mosdepth_per_base_bed
+#    output: "results/{sample}/mosdepth/{sample}.per-base.bed.gz"
+#    input: "mosdepth/{sample}.per-base.bed.gz"
+#  - name: mosdepth_global_dist
+#    output: "results/{sample}/mosdepth/{sample}.mosdepth.global.dist.txt"
+#    input: "mosdepth/{sample}.mosdepth.global.dist.txt"
+#  - name: deepvariant_vcf
+#    output: "results/{sample}/deepvariant/{sample}.sorted.Hg38.bam.vcf.gz"
+#    input: "deepvariant/{sample}.sorted.Hg38.vcf.gz"

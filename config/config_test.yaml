@@ -1,22 +1,19 @@
-samples: "/proj/naiss2024-22-121/pb_longread_pipeline/PacBio_HIghFIve/config/samples.tsv"
-units: "/proj/naiss2024-22-121/pb_longread_pipeline/PacBio_HIghFIve/config/units.tsv"
+samples: "config/samples.tsv"
+units: "config/units.tsv"
 
-output: "/proj/naiss2024-22-121/pb_longread_pipeline/PacBio_HIghFIve/config/output_list.yaml"
-resources: "/proj/naiss2024-22-121/pb_longread_pipeline/PacBio_HIghFIve/config/resources.yaml"
+output: "config/output_list.yaml"
+resources: "config/resources.yaml"
 
-default_container: /proj/naiss2024-22-121/pb_longread_pipeline/singularity_fileshydragenetics_common_1.10.2.sif
+default_container: /castor/project/proj/poirot_pipeline/singularity_files/hydragenetics_common_0.3.0.sif
 
 reference: 
-  fasta: "/proj/naiss2024-22-121/pb_longread_pipeline/static_resources/GRCh38/human_GRCh38_no_alt_analysis_set.fasta"
-
-fastqc_params: 
-  container: "/proj/naiss2024-22-121/pb_longread_pipeline/singularity_files/hydragenetics_fastqc_0.11.9.sif"
+  fasta: "/proj/naiss2024-22-121/pb_longread_pipeline/references/Hg38/ncbi_dataset/data/GCF_000001405.26/GCF_000001405.26_GRCh38_genomic.fna"
 
 deepvariant:
-  container: "/proj/naiss2024-22-121/pb_longread_pipeline/singularity_files/deepvariant_1.6.0.sif"
+  container: "/proj/naiss2024-22-121/nobackup/padraic/singularity_files/deepvariant_1.6.0.sif"
   
 pbmm2_align_params:
-  container: "/proj/naiss2024-22-121/pb_longread_pipeline/singularity_files/pbmm2_1.13.1.sif"
+  container: "/proj/naiss2024-22-121/nobackup/padraic/singularity_files/pbmm2_1.13.1.sif"
   preset: "HIFI"
   extra: "--sort"
 

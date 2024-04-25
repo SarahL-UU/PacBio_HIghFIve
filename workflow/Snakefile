@@ -1,21 +1,20 @@
-
 include: "rules/common.smk"
-#include: "rules/deepvariant.smk"
+include: "rules/deepvariant.smk"
 include: "rules/fastqc.smk"
-#include: "rules/mosdepth.smk"
-#include: "rules/multiqc.smk"
-#include: "rules/pbmm2.smk"
+include: "rules/mosdepth.smk"
+include: "rules/multiqc.smk"
+include: "rules/pbmm2.smk"
 #include: "rules/pbsv.smk"
-#include: "rules/picard.smk"
-#include: "rules/samtools.smk"
+include: "rules/picard.smk"
+include: "rules/samtools.smk"
 #include: "rules/somalier.smk"
 #include: "rules/svanna.smk"
-#include: "rules/whatshap.smk"
+include: "rules/whatshap.smk"
 
-report: "/proj/naiss2024-22-121/pb_longread_pipeline/PacBio_HIghFIve/report/workflow.rst"
+report: "/proj/sens2017554/nobackup/sarah/Masterarbete/PacBio_HIghFIve/report/workflow.rst"
 
 rule all:
     input:
-        unpack(compile_output_list),
+	unpack(compile_output_list),
 
 

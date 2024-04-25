@@ -1,4 +1,4 @@
-sample  type    platform    machine processing_unit barcode methylation bam
-HG002   T   PACBIO  NA  m84011_220902_175841_s1 NA  Yes /proj/sens2017554/nobackup/sarah/Masterarbete/Raw_data/control_samples/m84011_220902_175841_s1.hifi_reads.bam
-HG003   T   PACBIO  NA  m84010_220919_235306_s2 NA  Yes /proj/sens2017554/nobackup/sarah/Masterarbete/Raw_data/control_samples/m84010_220919_235306_s2.hifi_reads.bam
-HG004   T   PACBIO  NA  m84010_220919_232145_s1 NA  Yes /proj/sens2017554/nobackup/sarah/Masterarbete/Raw_data/control_samples/m84010_220919_232145_s1.hifi_reads.bam
+sample  type  platform  machine  processing_unit  barcode  methylation bam
+HG002  T  PACBIO  NA  m84011_220902_175841_s1  NA  Yes  /proj/sens2017554/nobackup/sarah/Masterarbete/Raw_data/control_samples/m84011_220902_175841_s1.hifi_reads.bam
+HG003  T  PACBIO  NA  m84010_220919_235306_s2  NA  Yes  /proj/sens2017554/nobackup/sarah/Masterarbete/Raw_data/control_samples/m84010_220919_235306_s2.hifi_reads.bam
+HG004  T  PACBIO  NA  m84010_220919_232145_s1  NA  Yes  /proj/sens2017554/nobackup/sarah/Masterarbete/Raw_data/control_samples/m84010_220919_232145_s1.hifi_reads.bam

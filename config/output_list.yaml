@@ -51,13 +51,13 @@ files:
     output: "results/{trio}/somalier/{trio}.samples.tsv"
     input: "qc/somalier/relate/{trio}.samples.tsv"
   - name: somalier_relate_pairs
-    output: "results/{trio}/somalier/{trio}.samples.tsv"
+    output: "results/{trio}/somalier/{trio}.pairs.tsv"
     input: "qc/somalier/relate/{trio}.pairs.tsv"
   - name: somalier_relate_groups
-    output: "results/{trio}/somalier/{trio}.samples.tsv"
+    output: "results/{trio}/somalier/{trio}.groups.tsv"
     input: "qc/somalier/relate/{trio}.groups.tsv"
   - name: somalier_relate_html
-    output: "results/{trio}/somalier/{trio}.samples.tsv"
+    output: "results/{trio}/somalier/{trio}.html"
     input: "qc/somalier/relate/{trio}.html"
   - name: multiqc_html
     output: "results/{sample}/multiqc/multiqc_{sample}.html"
@@ -74,3 +74,5 @@ files:
   - name: bcftools_stats
     output: "results/{sample}/bcftools/{sample}.SNP.indel.vcf.stats"
     input: "qc/bcftools/{sample}.SNP.indel.vcf.stats"
+
+

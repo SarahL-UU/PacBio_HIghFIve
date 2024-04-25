@@ -1,45 +1,50 @@
 rule picard_collectalignmentsummarymetrics:
     input:
-        ref="/proj/naiss2024-22-121/pb_longread_pipeline/references/Hg38/ncbi_dataset/data/GCF_000001405.26/GCF_000001405.26_GRCh38_geno$
-        bam="aligned/{sample}.sorted.Hg38.bam",
+	bam="aligned/{sample}.aligned.sorted.bam",
+        ref=config.get("reference_files", {}).get("fasta_file", ""),
     output:
-        "/picard/collectalignmentsummarymetrics/{sample}.sorted.Hg38.bam.summary.txt",
+	"qc/picard/collectalignmentsummarymetrics/{sample}.aligned.sorted.bam.summary.txt",
     log:
-        "logs/picard/collectalignmentsummarymetrics/{sample}.sorted.Hg38.bam.picard.alignmentmetrics.log",
-    params:
-        # optional parameters (e.g. relax checks as below)
-        extra="--VALIDATION_STRINGENCY LENIENT --METRIC_ACCUMULATION_LEVEL null --METRIC_ACCUMULATION_LEVEL SAMPLE",
-    # optional specification of memory usage of the JVM that snakemake will respect with global
-    # resource restrictions (https://snakemake.readthedocs.io/en/latest/snakefiles/rules.html#resources)
-    # and which can be used to request RAM during cluster job submission as `{resources.mem_mb}`:
-    # https://snakemake.readthedocs.io/en/latest/executing/cluster.html#job-properties
+        "logs/picard/collectalignmentsummarymetrics/{sample}.aligned.sorted.bam.picard.alignmentmetrics.log",
+    threads: config.get("default_resources", {}).get("threads", config["default_resources"]["threads"])
     resources:
-        mem_mb=1024,
-    wrapper:
-        "/proj/naiss2024-22-121/pb_longread_pipeline/snakemake-wrappers/bio/picard/collectalignmentsummarymetrics"
+	mem_mb=config.get("defaults_resources", {}).get("mem_mb", config["default_resources"]["mem_mb"]),
+        mem_per_cpu=config.get("default_resources", {}).get("mem_per_cpu", config["default_resources"]["mem_per_cpu"]),
+        partition=config.get("default_resources", {}).get("partition", config["default_resources"]["partition"]),
+        threads=config.get("default_resources", {}).get("threads", config["default_resources"]["threads"]),
+        time=config.get("defaults_resources", {}).get("time", config["default_resources"]["time"]),
+    container:
+	config.get("picard_collectalignmentsummarymetrics_params", {}).get("container", config["default_container"])
+    message:
+	"{rule}: Produces a summary of alignment metrics from picard for {input.bam}"
+    shell:
+	"picard CollectAlignmentSummaryMetrics R={input.ref} I={input.bam} O={output}"
+
 
 rule picard_collectgcbiasmetrics:
     input:
-        # BAM aligned to reference genome
-        bam="aligned/{sample}.sorted.Hg38.bam",
-        # reference genome FASTA from which GC-context is inferred
-        ref="/proj/naiss2024-22-121/pb_longread_pipeline/references/Hg38/ncbi_dataset/data/GCF_000001405.26/GCF_000001405.26_GRCh38_genomic.fna",
+	bam="aligned/{sample}.aligned.sorted.bam",
+        ref=config.get("reference_files", {}).get("fasta_file", ""),
     output:
-        metrics="picard/collectgcbiasmetrics/{sample}.sorted.Hg38.bam.gcmetrics.txt",
-        chart="picard/collectgcbiasmetrics/{sample}.sorted.Hg38.bam.gc.pdf",
-        summary="picard/collectgcbiasmetrics/{sample}.sorted.Hg38.bam.summary.txt",
-    params:
-        # optional additional parameters, for example,
-        extra="--MINIMUM_GENOME_FRACTION 1E-5",
+	metrics="qc/picard/collectgcbiasmetrics/{sample}.aligned.sorted.bam.gcmetrics.txt",
+        chart="qc/picard/collectgcbiasmetrics/{sample}.aligned.sorted.bam.gc.pdf",
+        summary="qc/picard/collectgcbiasmetrics/{sample}.aligned.sorted.bam.summary.txt",
     log:
-        "logs/picard/collectgcbiasmetrics/{sample}.sorted.Hg38.bam.gcmetrics.log",
-    # optional specification of memory usage of the JVM that snakemake will respect with global
-    # resource restrictions (https://snakemake.readthedocs.io/en/latest/snakefiles/rules.html#resources)
-    # and which can be used to request RAM during cluster job submission as `{resources.mem_mb}`:
-    # https://snakemake.readthedocs.io/en/latest/executing/cluster.html#job-properties
+        "logs/picard/collectgcbiasmetrics/{sample}.aligned.sorted.bam.gcmetrics.log",
+    threads: config.get("default_resources", {}).get("threads", config["default_resources"]["threads"])
     resources:
-        mem_mb=1024,
-    wrapper:
-        "/proj/naiss2024-22-121/pb_longread_pipeline/snakemake-wrappers/bio/picard/collectgcbiasmetrics"
-
+	mem_mb=config.get("defaults_resources", {}).get("mem_mb", config["default_resources"]["mem_mb"]),
+        mem_per_cpu=config.get("default_resources", {}).get("mem_per_cpu", config["default_resources"]["mem_per_cpu"]),
+        partition=config.get("default_resources", {}).get("partition", config["default_resources"]["partition"]),
+        threads=config.get("default_resources", {}).get("threads", config["default_resources"]["threads"]),
+        time=config.get("defaults_resources", {}).get("time", config["default_resources"]["time"]),
+    container:
+	config.get("picard_collectgcbiasmetrics_params", {}).get("container", config["default_container"])
+    message:
+	"{rule}: Collect metrics regarding GC bias from picard for {input.bam}"
+    shell:
+	"picard CollectGcBiasMetrics "
+        "I={input.bam} O={output.metrics} "
+        "CHART={output.chart} "
+        "S={output.summary} R={input.ref}"
 

@@ -1,0 +1,65 @@
+samples: "/proj/sens2017554/nobackup/sarah/Masterarbete/PacBio_HIghFIve/config/samples.tsv"
+units: "/proj/sens2017554/nobackup/sarah/Masterarbete//PacBio_HIghFIve/config/units.tsv"
+
+output: "/proj/sens2017554/nobackup/sarah/Masterarbete/PacBio_HIghFIve/config/output_list.yaml"
+resources: "/proj/sens2017554/nobackup/sarah/Masterarbete/PacBio_HIghFIve/config/resources.yaml"
+
+default_container: /proj/sens2017554/nobackup/sarah/Masterarbete/singularity_files/hydragenetics_common_1.10.2.sif
+
+reference_files:
+  fasta_file: "/proj/sens2017554/nobackup/sarah/Masterarbete/static_resources/GRCh38/human_GRCh38_no_alt_analysis_set.fasta"
+
+fastqc_params:
+  container: "/proj/sens2017554/nobackup/sarah/Masterarbete/singularity_files/hydragenetics_fastqc_0.11.9.sif"
+
+deepvariant_params:
+  container: "/proj/sens2017554/nobackup/sarah/Masterarbete/singularity_files/deepvariant_1.6.0.sif"
+  model: "PACBIO"
+
+pbmm2_align_params:
+  container: "/proj/sens2017554/nobackup/sarah/Masterarbete/singularity_files/pbmm2_1.13.1.sif"
+  preset: "--preset HIFI"
+  sort: "--sort"
+  extra: "--log-level INFO"
+
+mosdepth_params:
+  container: "/proj/sens2017554/nobackup/sarah/Masterarbete/singularity_files/hydragenetics_mosdepth_0.3.2.sif"
+  extra: "--fast-mode"
+  by: "500"
+
+samtools_stats_params:
+  container: "/proj/sens2017554/nobackup/sarah/Masterarbete/singularity_files/hydragenetics_common_1.10.2.sif"
+
+samtools_flagstat_params:
+  container: "/proj/sens2017554/nobackup/sarah/Masterarbete/singularity_files/hydragenetics_common_1.10.2.sif"
+
+samtools_idxstats_params:
+  container: "/proj/sens2017554/nobackup/sarah/Masterarbete/singularity_files/hydragenetics_common_1.10.2.sif"
+
+picard_collectalignmentsummarymetrics_params:
+  container: "/proj/sens2017554/nobackup/sarah/Masterarbete/singularity_files/hydragenetics_picard_2.25.4.sif"
+
+picard_collectgcbiasmetrics_params:
+  container: "/proj/sens2017554/nobackup/sarah/Masterarbete/singularity_files/hydragenetics_picard_2.25.4.sif"
+
+somalier_extract_params:
+  container: "/proj/sens2017554/nobackup/sarah/Masterarbete/singularity_files/brentp_somalier_v0.2.19.sif"
+
+somalier_relate_params:
+  container: "/proj/sens2017554/nobackup/sarah/Masterarbete/singularity_files/brentp_somalier_v0.2.19.sif"
+
+multiqc_params:
+  container: "/proj/sens2017554/nobackup/sarah/Masterarbete/singularity_files/hydragenetics_multiqc_1.11.sif"
+
+pbsv_params:
+  container: "/proj/sens2017554/nobackup/sarah/Masterarbete/singularity_files/hydragenetics_pbsv_2.9.0.sif"
+
+whatshap_phase_params:
+  container: "/proj/sens2017554/nobackup/sarah/Masterarbete/singularity_files/whatshap_2.1.sif"
+  indels: "--indels"
+
+trgt_params:
+  container: "/proj/sens2017554/nobackup/sarah/Masterarbete/singularity_files/trgt_0.8.0.sif"
+
+bcftools_stats_params:
+  container: ""/proj/sens2017554/nobackup/sarah/Masterarbete/singularity_files/bcftools_1.14.sif"

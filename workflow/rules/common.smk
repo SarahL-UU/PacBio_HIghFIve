@@ -53,10 +53,20 @@ with open(config["output"]) as output:
 
 validate(output_spec, schema="../schemas/output_files.schema.yaml")
 
-### Set wildcard constraints
+# Group by trioid and aggregate samples
+trioid_sample_dict = samples.groupby(samples.loc[:, 'trioid'])['sample'].apply(list).to_dict()
+
+#print(trioid_sample_dict)
+
+# Get all possible combinations of sample and trioid
+all_combinations = [(sample, trioid) for trioid, samples in trioid_sample_dict.items() for sample in samples]
+
+#print(all_combinations)
+
+# Set wildcard constraints
 wildcard_constraints:
-    sample="|".join(samples.index),
-    type="N|T|R",
+    sample='|'.join(sorted(set(sample for sample, _ in all_combinations))),
+    trioid='|'.join(sorted(trioid_sample_dict.keys()))
 
 ### Functions
 

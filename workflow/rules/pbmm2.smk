@@ -3,15 +3,14 @@ rule pbmm2_align:
 	fasta=config.get("reference_files", {}).get("fasta_file", ""),
         query=pbmm2_input,
     output:
-	bam="aligned/{sample}.aligned.sorted.bam",
-        index="aligned/{sample}.aligned.sorted.bam.bai",
+	bam="aligned/{trio}/{sample}.{trio}.aligned.sorted.bam",
+        index="aligned/{trio}/{sample}.{trio}.aligned.sorted.bam.bai",
     params:
 	preset=config.get("pbmm2_align_params", {}).get("preset", ""),
-        #sample=lambda wildcards: wildcards.sample,
         sort=config.get("pbmm2_align_params", {}).get("sort", ""),
         extra=config.get("pbmm2_align_params", {}).get("extra", ""),
     log:
-        "logs/pbmm2_align/{sample}.aligned.sorted.bam.log",
+        "logs/pbmm2_align/{trio}/{sample}.{trio}.aligned.sorted.bam.log",
     threads: config.get("pbmm2_align_params", {}).get("threads", config["default_resources"]["threads"])
     resources:
 	mem_mb=config.get("pbmm2_align_params", {}).get("mem_mb", config["default_resources"]["mem_mb"]),

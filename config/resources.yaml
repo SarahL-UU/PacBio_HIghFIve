@@ -30,9 +30,27 @@ samtools_idxstats_params:
 
 deepvariant_params:
   threads: 16
-  time: "72:00:00"
+  time: "24:00:00"
   mem_mb: 114688
   mem_per_cpu: 7168
 
 whatshap_phase_params:
   threads: 4
+
+pbsv_discover_params:
+  threads: 16
+  time: "48:00:00"
+  mem_mb: 114688
+  mem_per_cpu: 7168
+
+pbsv_call_params:
+  threads: 16
+  time: "48:00:00"
+  mem_mb: 114688
+  mem_per_cpu: 7168
+
+trgt_genotype_params:
+  threads: 16
+  time: "48:00:00"
+  mem_mb: 114688
+  mem_per_cpu: 7168

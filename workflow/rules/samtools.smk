@@ -1,10 +1,10 @@
 rule samtools_stats:
     input:
-	bam="aligned/{sample}.aligned.sorted.bam",
+	bam="aligned/{trio}/{sample}.{trio}.aligned.sorted.bam",
     output:
-	"qc/samtools_stats/{sample}.samtools-stats.txt",
+	"qc/samtools_stats/{sample}.{trio}.samtools-stats.txt",
     log:
-        "logs/samtools_stats/{sample}.log",
+        "logs/samtools_stats/{trio}/{sample}.{trio}.log",
     message:
 	"{rule}: produces comprehensive statistics from alignment file {input.bam}."
     threads: config.get("samtools_stats", {}).get("threads", config["default_resources"]["threads"])
@@ -22,11 +22,11 @@ rule samtools_stats:
 
 rule samtools_flagstat:
     input:
-	bam="aligned/{sample}.aligned.sorted.bam",
+	bam="aligned/{trio}/{sample}.{trio}.aligned.sorted.bam",
     output:
-	"qc/samtools_flagstat/{sample}.samtools-flagstat.txt",
+	"qc/samtools_flagstat/{trio}/{sample}.{trio}.samtools-flagstat.txt",
     log:
-        "logs/samtools_flagstat/{sample}.log",
+        "logs/samtools_flagstat/{trio}/{sample}.{trio}.log",
     message:
 	"{rule}: counts the number of alignments for each FLAG type for {input.bam}."
     threads: config.get("samtools_flagstat_params", {}).get("threads", config["default_resources"]["threads"])
@@ -37,17 +37,17 @@ rule samtools_flagstat:
         threads=config.get("samtools_flagstat_params", {}).get("threads", config["samtools_flagstat_params"]["threads"]),
         time=config.get("defaults_resources", {}).get("time", config["default_resources"]["time"]),
     container:
-	config.get("samtools_flagstat_params", {}).get("container", config["default_container"])
+        config.get("samtools_flagstat_params", {}).get("container", config["default_container"])
     shell:
 	"samtools flagstat -@ {threads} {input.bam} > {output}"
 
 rule samtools_idxstats:
     input:
-	bam="aligned/{sample}.aligned.sorted.bam",
+	bam="aligned/{trio}/{sample}.{trio}.aligned.sorted.bam",
     output:
-	"qc/samtools_idxstats/{sample}.samtools-idxstats.txt",
+	"qc/samtools_idxstats/{trio}/{sample}.{trio}.samtools-idxstats.txt",
     log:
-        "logs/samtools_idxstats/{sample}.log",
+        "logs/samtools_idxstats/{trio}/{sample}.{trio}.log",
     message:
 	"{rule}: reports alignment summary statistics using idxstats for {input.bam}"
     threads: config.get("default_resources", {}).get("threads", config["default_resources"]["threads"])
@@ -58,6 +58,6 @@ rule samtools_idxstats:
         threads=config.get("default_resources", {}).get("threads", config["default_resources"]["threads"]),
         time=config.get("defaults_resources", {}).get("time", config["default_resources"]["time"]),
     container:
-	config.get("samtools_idxstats_params", {}).get("container", config["default_container"])
+        config.get("samtools_idxstats_params", {}).get("container", config["default_container"])
     shell:
-        "samtools idxstats {input.bam} > {output}"
+	"samtools idxstats {input.bam} > {output}"

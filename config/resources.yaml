@@ -1,14 +1,38 @@
 default_resources:
   threads: 1
-  time: "1:00:00"
-  mem_mb: 6144
-  mem_per_cpu: 6144
+  time: "12:00:00"
+  mem_mb: 7168
+  mem_per_cpu: 7168
   partition: "core"
 
-fastqc:
+fastqc_params:
   threads: 2
-  time: 5:00:00
-  
-pbmm2_align:
-  threads: 8 
+  time: "5:00:00"
 
+pbmm2_align_params:
+  threads: 16
+  time: "15:00:00"
+  mem_mb: 114688
+  mem_per_cpu: 7168
+
+mosdepth_params:
+  threads: 4
+  time: "05:00:00"
+
+samtools_stats_params:
+  threads: 4
+
+samtools_flagstat_params:
+  threads: 4
+
+samtools_idxstats_params:
+  threads: 4
+
+deepvariant_params:
+  threads: 16
+  time: "72:00:00"
+  mem_mb: 114688
+  mem_per_cpu: 7168
+
+whatshap_phase_params:
+  threads: 4

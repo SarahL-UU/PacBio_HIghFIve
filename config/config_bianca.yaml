@@ -1,5 +1,5 @@
-samples: "/proj/sens2017554/nobackup/sarah/Masterarbete/PacBio_HIghFIve/config/samples.tsv"
-units: "/proj/sens2017554/nobackup/sarah/Masterarbete//PacBio_HIghFIve/config/units.tsv"
+samples: "/proj/sens2017554/nobackup/sarah/Masterarbete/PacBio_HIghFIve/config/samples_trio.tsv"
+units: "/proj/sens2017554/nobackup/sarah/Masterarbete//PacBio_HIghFIve/config/units_trio.tsv"
 
 output: "/proj/sens2017554/nobackup/sarah/Masterarbete/PacBio_HIghFIve/config/output_list.yaml"
 resources: "/proj/sens2017554/nobackup/sarah/Masterarbete/PacBio_HIghFIve/config/resources.yaml"
@@ -8,6 +8,9 @@ default_container: /proj/sens2017554/nobackup/sarah/Masterarbete/singularity_fil
 
 reference_files:
   fasta_file: "/proj/sens2017554/nobackup/sarah/Masterarbete/static_resources/GRCh38/human_GRCh38_no_alt_analysis_set.fasta"
+  bed_file: "/proj/sens2017554/nobackup/sarah/Masterarbete/static_resources/GRCh38/human_GRCh38_no_alt_analysis_set.trf.bed"
+  sites_vcf: "/proj/sens2017554/nobackup/sarah/Masterarbete/reference_files/sites.hg38.vcf.gz"
+  repeat_bed: "/proj/sens2017554/nobackup/sarah/Masterarbete/static_resources/GRCh38/trgt/human_GRCh38_no_alt_analysis_set.trgt.v0.3.4.bed"
 
 fastqc_params:
   container: "/proj/sens2017554/nobackup/sarah/Masterarbete/singularity_files/hydragenetics_fastqc_0.11.9.sif"
@@ -51,15 +54,22 @@ somalier_relate_params:
 multiqc_params:
   container: "/proj/sens2017554/nobackup/sarah/Masterarbete/singularity_files/hydragenetics_multiqc_1.11.sif"
 
-pbsv_params:
+pbsv_discover_params:
+  container: "/proj/sens2017554/nobackup/sarah/Masterarbete/singularity_files/hydragenetics_pbsv_2.9.0.sif"
+
+pbsv_call_params:
   container: "/proj/sens2017554/nobackup/sarah/Masterarbete/singularity_files/hydragenetics_pbsv_2.9.0.sif"
 
 whatshap_phase_params:
   container: "/proj/sens2017554/nobackup/sarah/Masterarbete/singularity_files/whatshap_2.1.sif"
   indels: "--indels"
 
-trgt_params:
+whatshap_stats_params:
+  container: "/proj/sens2017554/nobackup/sarah/Masterarbete/singularity_files/whatshap_2.1.sif"
+
+trgt_genotype_params:
   container: "/proj/sens2017554/nobackup/sarah/Masterarbete/singularity_files/trgt_0.8.0.sif"
+  prefix: "{wildcards.sample}.{wildcards.trio}.trgt"
 
 bcftools_stats_params:
-  container: ""/proj/sens2017554/nobackup/sarah/Masterarbete/singularity_files/bcftools_1.14.sif"
+  container: "/proj/sens2017554/nobackup/sarah/Masterarbete/singularity_files/bcftools_1.14.sif"

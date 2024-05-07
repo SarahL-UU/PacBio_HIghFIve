@@ -1,11 +1,11 @@
 rule picard_collectalignmentsummarymetrics:
     input:
-	bam="aligned/{sample}.aligned.sorted.bam",
+	bam="aligned/{trio}/{sample}.{trio}.aligned.sorted.bam",
         ref=config.get("reference_files", {}).get("fasta_file", ""),
     output:
-	"qc/picard/collectalignmentsummarymetrics/{sample}.aligned.sorted.bam.summary.txt",
+	"qc/picard/collectalignmentsummarymetrics/{trio}/{sample}.{trio}.aligned.sorted.bam.summary.txt",
     log:
-        "logs/picard/collectalignmentsummarymetrics/{sample}.aligned.sorted.bam.picard.alignmentmetrics.log",
+        "logs/picard/collectalignmentsummarymetrics/{trio}/{sample}.{trio}.aligned.sorted.bam.picard.alignmentmetrics.log",
     threads: config.get("default_resources", {}).get("threads", config["default_resources"]["threads"])
     resources:
 	mem_mb=config.get("defaults_resources", {}).get("mem_mb", config["default_resources"]["mem_mb"]),
@@ -23,14 +23,14 @@ rule picard_collectalignmentsummarymetrics:
 
 rule picard_collectgcbiasmetrics:
     input:
-	bam="aligned/{sample}.aligned.sorted.bam",
+        bam="aligned/{trio}/{sample}.{trio}.aligned.sorted.bam",
         ref=config.get("reference_files", {}).get("fasta_file", ""),
     output:
-	metrics="qc/picard/collectgcbiasmetrics/{sample}.aligned.sorted.bam.gcmetrics.txt",
-        chart="qc/picard/collectgcbiasmetrics/{sample}.aligned.sorted.bam.gc.pdf",
-        summary="qc/picard/collectgcbiasmetrics/{sample}.aligned.sorted.bam.summary.txt",
+        metrics="qc/picard/collectgcbiasmetrics/{trio}/{sample}.{trio}.aligned.sorted.bam.gcmetrics.txt",
+	chart="qc/picard/collectgcbiasmetrics/{trio}/{sample}.{trio}.aligned.sorted.bam.gc.pdf",
+        summary="qc/picard/collectgcbiasmetrics/{trio}/{sample}.{trio}.aligned.sorted.bam.summary.txt",
     log:
-        "logs/picard/collectgcbiasmetrics/{sample}.aligned.sorted.bam.gcmetrics.log",
+        "logs/picard/collectgcbiasmetrics/{trio}/{sample}.{trio}.aligned.sorted.bam.gcmetrics.log",
     threads: config.get("default_resources", {}).get("threads", config["default_resources"]["threads"])
     resources:
 	mem_mb=config.get("defaults_resources", {}).get("mem_mb", config["default_resources"]["mem_mb"]),

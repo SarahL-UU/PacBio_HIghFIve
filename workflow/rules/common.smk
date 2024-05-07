@@ -87,13 +87,13 @@ def compile_output_list(wildcards):
         # that the output strings should be formatted with.
         outputpaths = set(
             [
-                f["output"].format(sample=sample, type=unit_type)
-                for sample in get_samples(samples)
+                f["output"].format(sample=sample, type=unit_type, trio=trio)
+                for sample, trio in zip(samples["sample"], samples["trioid"])
                 for unit_type in get_unit_types(units, sample)
             ]
-        )
+	)
 
-        for op in outputpaths:
+	for op in outputpaths:
             output_files.append(outdir / Path(op))
 
     return output_files

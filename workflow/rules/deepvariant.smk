@@ -1,9 +1,9 @@
 rule deepvariant:
     input:
-	bam="aligned/{sample}.aligned.sorted.bam",
+	bam="aligned/{trio}/{sample}.{trio}.aligned.sorted.bam",
         ref=config.get("reference_files", {}).get("fasta_file", ""),
     output:
-	vcf="deepvariant/{sample}.SNP.indel.vcf.gz",
+	vcf="snp_calling/deepvariant/{trio}/{sample}.{trio}.SNP.indel.vcf.gz",
     params:
 	model=config.get("deepvariant_params", {}).get("model", ""),
     threads: config.get("deepvariant_params", {}).get("threads", config["default_resources"]["threads"])
@@ -16,7 +16,7 @@ rule deepvariant:
     container:
 	config.get("deepvariant_params", {}).get("container", config["default_container"])
     log:
-        "logs/deepvariant/{sample}/{sample}.deepvariant.log",
+        "logs/deepvariant/{trio}/{sample}/{sample}.{trio}.deepvariant.log",
     message:
 	"{rule}: Run deepvariant on {input.bam}."
     shell:

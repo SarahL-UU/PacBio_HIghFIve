@@ -1,78 +1,89 @@
 files:
   - name: fastqc_bam
-    output: "results/{sample}/fastqc/{sample}_fastqc.zip"
-    input: "qc/fastqc/{sample}/{sample}_fastqc.zip"
+    output: "results/{trio}/{sample}/fastqc/{sample}.{trio}_fastqc.zip"
+    input: "qc/fastqc/{trio}/{sample}/{sample}.{trio}_fastqc.zip"
   - name: aligned.sorted.bam
-    output: "results/{sample}/pbmm2/{sample}.aligned.sorted.bam"
-    input: "aligned/{sample}.aligned.sorted.bam"
+    output: "results/{trio}/{sample}/pbmm2/{sample}.{trio}.aligned.sorted.bam"
+    input: "aligned/{trio}/{sample}.{trio}.aligned.sorted.bam"
   - name: aligned.sorted.bam.bai
-    output: "results/{sample}/pbmm2/{sample}.aligned.sorted.bam.bai"
-    input: "aligned/{sample}.aligned.sorted.bam.bai"
+    output: "results/{trio}/{sample}/pbmm2/{sample}.{trio}.aligned.sorted.bam.bai"
+    input: "aligned/{trio}/{sample}.{trio}.aligned.sorted.bam.bai"
   - name: mosdepth_global_dist
-    output: "results/{sample}/mosdepth/{sample}.mosdepth.global.dist.txt"
-    input: "{sample}.mosdepth.global.dist.txt"
+    output: "results/{trio}/{sample}/mosdepth/{sample}.{trio}.mosdepth.global.dist.txt"
+    input: "{sample}.{trio}.mosdepth.global.dist.txt"
   - name: mosdepth_per_base_bed
-    output: "results/{sample}/mosdepth/{sample}.per-base.bed.gz"
-    input: "{sample}.per-base.bed.gz"
+    output: "results/{trio}/{sample}/mosdepth/{sample}.{trio}.per-base.bed.gz"
+    input: "{sample}.{trio}.per-base.bed.gz"
   - name: mosdepth_summary
-    output: "results/{sample}/mosdepth/{sample}.mosdepth.summary.txt"
-    input: "{sample}.mosdepth.summary.txt"
+    output: "results/{trio}/{sample}/mosdepth/{sample}.{trio}.mosdepth.summary.txt"
+    input: "{sample}.{trio}.mosdepth.summary.txt"
   - name: mosdepth_region_dist
-    output: "results/{sample}/mosdepth/{sample}.mosdepth.region.dist.txt"
-    input: "{sample}.mosdepth.region.dist.txt"
+    output: "results/{trio}/{sample}/mosdepth/{sample}.{trio}.mosdepth.region.dist.txt"
+    input: "{sample}.{trio}.mosdepth.region.dist.txt"
   - name: mosdepth_regions_bed
-    output: "results/{sample}/mosdepth/{sample}.regions.bed.gz"
-    input: "{sample}.regions.bed.gz"
+    output: "results/{trio}/{sample}/mosdepth/{sample}.{trio}.regions.bed.gz"
+    input: "{sample}.{trio}.regions.bed.gz"
   - name: samtools_stats
-    output: "results/{sample}/samtools/{sample}.samtools-stats.txt"
-    input: "qc/samtools_stats/{sample}.samtools-stats.txt"
+    output: "results/{trio}/{sample}/samtools/{sample}.{trio}.samtools-stats.txt"
+    input: "qc/samtools_stats/{sample}.{trio}.samtools-stats.txt"
   - name: samtools_flagstat
-    output: "results/{sample}/samtools/{sample}.samtools-flagstat.txt"
-    input: "qc/samtools_flagstat/{sample}.samtools-flagstat.txt"
+    output: "results/{trio}/{sample}/samtools/{sample}.{trio}.samtools-flagstat.txt"
+    input: "qc/samtools_flagstat/{trio}/{sample}.{trio}.samtools-flagstat.txt"
   - name: samtools_idxstats
-    output: "results/{sample}/samtools/{sample}.samtools-idxstats.txt"
-    input: "qc/samtools_idxstats/{sample}.samtools-idxstats.txt"
+    output: "results/{trio}/{sample}/samtools/{sample}.{trio}.samtools-idxstats.txt"
+    input: "qc/samtools_idxstats/{trio}/{sample}.{trio}.samtools-idxstats.txt"
   - name: picard_collectalignmentsummarymetrics
-    output: "results/{sample}/collectalignmentsummarymetrics/{sample}.aligned.sorted.bam.summary.txt"
-    input: "qc/picard/collectalignmentsummarymetrics/{sample}.aligned.sorted.bam.summary.txt"
+    output: "results/{trio}/{sample}/collectalignmentsummarymetrics/{sample}.{trio}.aligned.sorted.bam.summary.txt"
+    input: "qc/picard/collectalignmentsummarymetrics/{trio}/{sample}.{trio}.aligned.sorted.bam.summary.txt"
   - name: picard_collectgcbiasmetrics_metrics
-    output: "results/{sample}/picard/collectgcbiasmetrics/{sample}.aligned.sorted.bam.gcmetrics.txt"
-    input: "qc/picard/collectgcbiasmetrics/{sample}.aligned.sorted.bam.gcmetrics.txt"
+    output: "results/{trio}/{sample}/picard/collectgcbiasmetrics/{sample}.{trio}.aligned.sorted.bam.gcmetrics.txt"
+    input: "qc/picard/collectgcbiasmetrics/{trio}/{sample}.{trio}.aligned.sorted.bam.gcmetrics.txt"
   - name: picard_collectgcbiasmetrics_chart
-    output: "results/{sample}/picard/collectgcbiasmetrics/{sample}.aligned.sorted.bam.gc.pdf"
-    input: "qc/picard/collectgcbiasmetrics/{sample}.aligned.sorted.bam.gc.pdf"
+    output: "results/{trio}/{sample}/picard/collectgcbiasmetrics/{sample}.{trio}.aligned.sorted.bam.gc.pdf"
+    input: "qc/picard/collectgcbiasmetrics/{trio}/{sample}.{trio}.aligned.sorted.bam.gc.pdf"
   - name: picard_collectgcbiasmetrics_summary
-    output: "results/{sample}/picard/collectgcbiasmetrics/{sample}.aligned.sorted.bam.summary.txt"
-    input: "qc/picard/collectgcbiasmetrics/{sample}.aligned.sorted.bam.summary.txt"
+    output: "results/{trio}/{sample}/picard/collectgcbiasmetrics/{sample}.{trio}.aligned.sorted.bam.summary.txt"
+    input: "qc/picard/collectgcbiasmetrics/{trio}/{sample}.{trio}.aligned.sorted.bam.summary.txt"
   - name: somalier_extract
-    output: "results/{sample}/somalier/extract/{sample}.somalier"
-    input: "qc/somalier/extract/{sample}.somalier"
+    output: "results/{trio}/{sample}/somalier/extract/{sample}.{trio}.somalier"
+    input: "qc/somalier/extract/{trio}/{sample}.{trio}.somalier"
   - name: somalier_relate_sample
     output: "results/{trio}/somalier/{trio}.samples.tsv"
-    input: "qc/somalier/relate/{trio}.samples.tsv"
+    input: "qc/somalier/relate/{trio}/{trio}.samples.tsv"
   - name: somalier_relate_pairs
     output: "results/{trio}/somalier/{trio}.pairs.tsv"
-    input: "qc/somalier/relate/{trio}.pairs.tsv"
+    input: "qc/somalier/relate/{trio}/{trio}.pairs.tsv"
   - name: somalier_relate_groups
     output: "results/{trio}/somalier/{trio}.groups.tsv"
-    input: "qc/somalier/relate/{trio}.groups.tsv"
+    input: "qc/somalier/relate/{trio}/{trio}.groups.tsv"
   - name: somalier_relate_html
     output: "results/{trio}/somalier/{trio}.html"
-    input: "qc/somalier/relate/{trio}.html"
+    input: "qc/somalier/relate/{trio}/{trio}.html"
   - name: multiqc_html
-    output: "results/{sample}/multiqc/multiqc_{sample}.html"
-    input: "qc/multiqc/multiqc_{sample}.html"
-#  - name: multiqc_data
-#    output: "directory("results/{sample}/multiqc/multiqc_{sample}_data")"
-#    input: "directory("qc/multiqc/multiqc_{sample}_data")"
+    output: "results/{trio}/multiqc/multiqc_{trio}.html"
+    input: "qc/multiqc/{trio}/multiqc_{trio}.html"
   - name: deepvariant_gz
-    output: "results/{sample}/deepvariant/{sample}.SNP.indel.vcf.gz"
-    input: "deepvariant/{sample}.SNP.indel.vcf.gz"
+    output: "results/{trio}/{sample}/deepvariant/{sample}.{trio}.SNP.indel.vcf.gz"
+    input: "snp_calling/deepvariant/{trio}/{sample}.{trio}.SNP.indel.vcf.gz"
   - name: whatshap_phase
-    output: "results/{sample}/whatshap/{sample}.SNP.indel.phased.vcf"
-    input: "whatshap/{sample}.SNP.indel.phased.vcf"
+    output: "results/{trio}/{sample}/whatshap/{sample}.{trio}.SNP.indel.phased.vcf"
+    input: "snp_calling/whatshap/{trio}/{sample}.{trio}.SNP.indel.phased.vcf"
+  - name: whatshap_stats
+    output: "results/{trio}/{sample}/whatshap/{sample}.{trio}.SNP.indel.phased.vcf.stats.tsv"
+    input: "snp_calling/whatshap/{trio}/{sample}.{trio}.SNP.indel.phased.vcf.stats.tsv"
   - name: bcftools_stats
-    output: "results/{sample}/bcftools/{sample}.SNP.indel.vcf.stats"
-    input: "qc/bcftools/{sample}.SNP.indel.vcf.stats"
-
+    output: "results/{trio}/{sample}/bcftools/{sample}.{trio}.SNP.indel.vcf.stats"
+    input: "qc/bcftools/{trio}/{sample}.{trio}.SNP.indel.vcf.stats"
+  - name: pbsv_discover
+    output: "results/{trio}/{sample}/pbsv/{sample}.{trio}.svsig.gz"
+    input: "sv_calling/pbsv/{trio}/{sample}.{trio}.svsig.gz"
+  - name: pbsv_call
+    output: "results/{trio}/{sample}/pbsv/{sample}.{trio}.sv.vcf"
+    input: "sv_calling/pbsv/{trio}/{sample}.{trio}.sv.vcf"
+  - name: trgt_genotype_vcf
+    output: "results/{trio}/{sample}/trgt/{sample}.{trio}.trgt.vcf.gz"
+    input: "sv_calling/trgt/{sample}.{trio}.trgt.vcf.gz"
+  - name: trgt_genotype_bam
+    output: "results/{trio}/{sample}/trgt/{sample}.{trio}.trgt.spanning.bam"
+    input: "repeat_calling/trgt/{sample}.{trio}.trgt.spanning.bam"
 

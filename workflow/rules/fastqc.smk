@@ -2,12 +2,12 @@ rule fastqc_prealignment_qc:
     input:
 	query=pbmm2_input,
     output:
-	"qc/fastqc/{sample}/{sample}_fastqc.html",
-        "qc/fastqc/{sample}/{sample}_fastqc.zip",
+	"qc/fastqc/{trio}/{sample}/{sample}.{trio}_fastqc.html",
+        "qc/fastqc/{trio}/{sample}/{sample}.{trio}_fastqc.zip",
     log:
-        "logs/fastqc/{sample}/{sample}_fastqc.log",
+        "logs/fastqc/{trio}/{sample}/{sample}_fastqc.log",
     params:
-	dir="qc/fastqc/{sample}"
+	dir="qc/fastqc/{trio}/{sample}"
     threads: config.get("fastqc_params", {}).get("threads", config["fastqc_params"]["threads"])
     resources:
 	mem_mb=config.get("default_resources", {}).get("mem_mb", config["default_resources"]["mem_mb"]),
@@ -22,6 +22,6 @@ rule fastqc_prealignment_qc:
     shell:
 	"""
 	fastqc -t {threads} --outdir {params.dir} {input.query}
-        mv {params.dir}/*.hifi_reads_fastqc.html {params.dir}/{wildcards.sample}_fastqc.html
-        mv {params.dir}/*.hifi_reads_fastqc.zip {params.dir}/{wildcards.sample}_fastqc.zip
+        mv {params.dir}/*.hifi_reads*_fastqc.html {params.dir}/{wildcards.sample}.{wildcards.trio}_fastqc.html
+        mv {params.dir}/*.hifi_reads*_fastqc.zip {params.dir}/{wildcards.sample}.{wildcards.trio}_fastqc.zip
         """

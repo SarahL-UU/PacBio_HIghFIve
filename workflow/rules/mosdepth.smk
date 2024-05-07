@@ -1,14 +1,14 @@
 rule mosdepth:
     input:
-	bam="aligned/{sample}.aligned.sorted.bam",
+	bam="aligned/{trio}/{sample}.{trio}.aligned.sorted.bam",
     output:
-	"{sample}.mosdepth.global.dist.txt",
-        "{sample}.per-base.bed.gz",  # produced unless --no-per-base specified
-        "{sample}.mosdepth.summary.txt",  # this named output is required for prefix parsing
-        "{sample}.mosdepth.region.dist.txt",
-        "{sample}.regions.bed.gz",
+	"{sample}.{trio}.mosdepth.global.dist.txt",
+        "{sample}.{trio}.per-base.bed.gz",  # produced unless --no-per-base specified
+        "{sample}.{trio}.mosdepth.summary.txt",  # this named output is required for prefix parsing
+        "{sample}.{trio}.mosdepth.region.dist.txt",
+        "{sample}.{trio}.regions.bed.gz",
     log:
-        "logs/mosdepth/{sample}.log",
+        "logs/mosdepth/{trio}/{sample}.log",
     params:
 	extra=config.get("mosdepth_params", {}).get("extra", ""),
         by=config.get("mosdepth_params", {}).get("by", ""),
@@ -24,4 +24,4 @@ rule mosdepth:
     message:
 	"{rule}: calculating coverage for {input.bam}."
     shell:
-	"mosdepth {params.extra} --by {params.by} -t {resources.threads} {wildcards.sample} {input.bam}"
+	"mosdepth {params.extra} --by {params.by} -t {resources.threads} {wildcards.sample}.{wildcards.trio} {input.bam}"

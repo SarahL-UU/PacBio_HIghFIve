@@ -11,7 +11,7 @@ include: "rules/somalier.smk"
 #include: "rules/svanna.smk"
 include: "rules/whatshap.smk"
 include: "rules/bcftools.smk"
-#include: "rules/trgt.smk"
+include: "rules/trgt.smk"
 
 report: "/proj/sens2017554/nobackup/sarah/Masterarbete/PacBio_HIghFIve/report/workflow.rst"
 

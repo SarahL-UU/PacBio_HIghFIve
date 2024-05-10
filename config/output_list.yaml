@@ -82,7 +82,7 @@ files:
     input: "sv_calling/pbsv/{trio}/{sample}.{trio}.sv.vcf"
   - name: trgt_genotype_vcf
     output: "results/{trio}/{sample}/trgt/{sample}.{trio}.trgt.vcf.gz"
-    input: "sv_calling/trgt/{sample}.{trio}.trgt.vcf.gz"
+    input: "repeat_calling/trgt/{sample}.{trio}.trgt.vcf.gz"
   - name: trgt_genotype_bam
     output: "results/{trio}/{sample}/trgt/{sample}.{trio}.trgt.spanning.bam"
     input: "repeat_calling/trgt/{sample}.{trio}.trgt.spanning.bam"

@@ -3,6 +3,7 @@ import numpy as np
 import pathlib
 import pandas as pd
 import yaml
+import os
 from snakemake.utils import validate
 from snakemake.utils import min_version
 
@@ -29,18 +30,21 @@ validate(config, schema="../schemas/resources.schema.yaml")
 
 ### Read and validate samples file
 
-samples = pd.read_table(config["samples"], dtype=str).set_index("sample", drop=False)
+samples = (
+    pd.read_table(config["samples"], dtype=str)
+    .set_index(["sample"], drop=False)
+)
 validate(samples, schema="../schemas/samples.schema.yaml")
 
 ### Read and validate units file
 
 units = (
-    pandas.read_table(config["units"], dtype=str)
-    .set_index(["sample", "type", "processing_unit", "platform"], drop=False)
+    pd.read_table(config["units"], dtype=str)
+    .set_index(["sample", "platform", "machine", "processing_unit", "barcode", "methylation"], drop=False)
     .dropna(axis='columns').sort_index()
 )
 
-print(units)
+#print(units)
 
 validate(units, schema="../schemas/units.schema.yaml")
 
@@ -54,19 +58,22 @@ with open(config["output"]) as output:
 validate(output_spec, schema="../schemas/output_files.schema.yaml")
 
 # Group by trioid and aggregate samples
-trioid_sample_dict = samples.groupby(samples.loc[:, 'trioid'])['sample'].apply(list).to_dict()
+#trioid_sample_dict = samples.groupby(samples.loc[:, 'trioid'])['sample'].apply(list).to_dict()
 
 #print(trioid_sample_dict)
 
 # Get all possible combinations of sample and trioid
-all_combinations = [(sample, trioid) for trioid, samples in trioid_sample_dict.items() for sample in samples]
+#all_combinations = [(sample, trioid) for trioid, samples in trioid_sample_dict.items() for sample in samples]
 
 #print(all_combinations)
 
 # Set wildcard constraints
 wildcard_constraints:
-    sample='|'.join(sorted(set(sample for sample, _ in all_combinations))),
-    trioid='|'.join(sorted(trioid_sample_dict.keys()))
+#    sample="|".join(sorted(set(sample for sample, _ in all_combinations))),
+#    trio="|".join(sorted(trioid_sample_dict.keys())),
+#    repeats="|".join(repeat_names)
+    sample="|".join(samples.index),
+    trio="|".join(samples.loc[:, 'trioid'])
 
 ### Functions
 
@@ -78,6 +85,23 @@ def pbmm2_input(wildcards):
 
     return bam_file
 
+
+#def trgt_plot_input(wildcards):
+#
+#    sample = wildcards.sample
+#    repeat-ids = config["repeat-ids"]
+#
+#    return repeat-ids
+
+#def extract_repeat_names(config["pathogenic_repeats"]):
+#    repeat_names = []
+#    with open(input_file, 'r') as file:
+#        for line in file:
+#            match = re.search(r'ID=([^;]+)', line)
+#            if match:
+#                repeat_names.append(match.group(1))
+#    return repeat_names
+
 def compile_output_list(wildcards):
     outdir = pathlib.Path(output_spec.get("directory", "./"))
     output_files = []
@@ -87,13 +111,12 @@ def compile_output_list(wildcards):
         # that the output strings should be formatted with.
         outputpaths = set(
             [
-                f["output"].format(sample=sample, type=unit_type, trio=trio)
+                f["output"].format(sample=sample, trio=trio)
                 for sample, trio in zip(samples["sample"], samples["trioid"])
-                for unit_type in get_unit_types(units, sample)
             ]
-	)
+        )
 
-	for op in outputpaths:
+        for op in outputpaths:
             output_files.append(outdir / Path(op))
 
     return output_files
@@ -143,4 +166,3 @@ def generate_copy_rules(output_spec):
     exec(compile("\n".join(rulestrings), "copy_result_files", "exec"), workflow.globals)
 
 generate_copy_rules(output_spec)
-

@@ -1,15 +1,15 @@
 rule somalier_extract:
     input:
         fasta=config.get("reference_files", {}).get("fasta_file", ""),
-        bam="aligned/{trio}/{sample}.{trio}.aligned.sorted.bam",
+        bam="{trio}/aligned/pbmm2/{sample}.{trio}.aligned.sorted.bam",
         vcf=config.get("reference_files", {}).get("sites_vcf", ""),
     output:
-        "qc/somalier/extract/{trio}/{sample}.{trio}.somalier",
+        "{trio}/qc/somalier/{sample}.{trio}.somalier",
     params:
-        outdir="qc/somalier/extract/{trio}",
-        prefix="{sample}.{trio}",
+        outdir="{trio}/qc/somalier/",
+        prefix="{sample}",
     log:
-        "logs/somalier/extract/{trio}/{sample}.{trio}.somalier.log",
+        "{trio}/logs/somalier/{sample}.{trio}.somalier.log",
     threads: config.get("default_resources", {}).get("threads", config["default_resources"]["threads"])
     resources:
         mem_mb=config.get("defaults_resources", {}).get("mem_mb", config["default_resources"]["mem_mb"]),
@@ -26,16 +26,18 @@ rule somalier_extract:
 
 rule somalier_relate:
     input:
-        extract_files=expand("qc/somalier/extract/{trio}/{sample}.{trio}.somalier", sample=samples["sample"], trio=samples["trioid"])
+        extract_files=expand("{trio}/qc/somalier/{sample}.somalier", zip, sample=samples["sample"], trio=samples["trioid"]),
+        ped=config.get("somalier_relate_params", {}).get("ped", ""),
     output:
-        samples_tsv="qc/somalier/relate/{trio}/{trio}.samples.tsv",
-        pairs_tsv="qc/somalier/relate/{trio}/{trio}.pairs.tsv",
-        groups_tsv="qc/somalier/relate/{trio}/{trio}.groups.tsv",
-        html="qc/somalier/relate/{trio}/{trio}.html",
+        samples_tsv="{trio}/qc/somalier/{trio}.somalier.samples.tsv",
+        pairs_tsv="{trio}/qc/somalier/{trio}.somalier.pairs.tsv",
+        groups_tsv="{trio}/qc/somalier/{trio}.somalier.groups.tsv",
+        html="{trio}/qc/somalier/{trio}.somalier.html",
     params:
-        outdir="qc/somalier/relate/{trio}"
+        outdir="{trio}/qc/somalier/{trio}.somalier",
+        prefix="{trio}.somalier",
     log:
-        "logs/somalier/relate/{trio}/{trio}.somalier_relate.log",
+        "{trio}/logs/somalier/{trio}.somalier_relate.log",
     threads: config.get("default_resources", {}).get("threads", config["default_resources"]["threads"]),
     resources:
         mem_mb=config.get("defaults_resources", {}).get("mem_mb", config["default_resources"]["mem_mb"]),
@@ -48,4 +50,4 @@ rule somalier_relate:
     message:
         "{rule}: Calculate relatedness on extracted data for trio {wildcards.trio}.",
     shell:
-        "somalier relate --infer --unknown -o {params.outdir} {input.extract_files}"
+        "somalier relate --ped={input.ped} --unknown --sample-prefix={params.prefix} -o {params.outdir} {input.extract_files}"

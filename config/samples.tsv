@@ -1,2 +1,12 @@
-sample
-HG002
+sample  sex trioid  trio_member
+HG002   male    GIAB_AshkenazimTrio proband
+HG003   male    GIAB_AshkenazimTrio father
+HG004   female  GIAB_AshkenazimTrio mother
+46863   unknown D36117  proband
+51959   male    D36117  father
+D24-01433   female  D36117  mother
+D19-02017   unknown D49374  proband
+D19-01175   female  D49374  mother
+D19-01177   male    D49374  father
+NA12878 female  GIAB    proband
+NA24385 male    GIAB    proband

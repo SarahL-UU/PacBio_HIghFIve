@@ -1,0 +1,12 @@
+sample  platform    machine processing_unit barcode methylation bam
+HG002   PACBIO  NA  m84011_220902_175841_s1 NA  Yes /proj/sens2017554/nobackup/sarah/Masterarbete/Raw_data/control_samples/m84011_220902_175841_s1.hifi_reads.bam
+HG003   PACBIO  NA  m84010_220919_235306_s2 NA  Yes /proj/sens2017554/nobackup/sarah/Masterarbete/Raw_data/control_samples/m84010_220919_235306_s2.hifi_reads.bam
+HG004   PACBIO  NA  m84010_220919_232145_s1 NA  Yes /proj/sens2017554/nobackup/sarah/Masterarbete/Raw_data/control_samples/m84010_220919_232145_s1.hifi_reads.bam
+46863   PACBIO  NA  m84045_240503_141432_s1 NA  Yes /proj/sens2017554/nobackup/sarah/Masterarbete/Raw_data/ugc00288_samples/m84045_240503_121516_s3.hifi_reads.bc2081.bam
+51959   PACBIO  NA  m84045_240503_161339_s2 NA  Yes /proj/sens2017554/nobackup/sarah/Masterarbete/Raw_data/ugc00288_samples/m84045_240503_141432_s1.hifi_reads.bc2082.bam
+D24-01433   PACBIO  NA  m84045_240503_181249_s4 NA  Yes /proj/sens2017554/nobackup/sarah/Masterarbete/Raw_data/ugc00288_samples/m84045_240503_161339_s2.hifi_reads.bc2083.bam
+D19-02017   PACBIO  NA  m84045_240413_162857_s1 NA  Yes /proj/sens2017554/nobackup/sarah/Masterarbete/Raw_data/ugc00277_samples/m84045_240413_162857_s1.hifi_reads.bc2085.bam
+D19-01175   PACBIO  NA  m84045_240413_182816_s2 NA  Yes /proj/sens2017554/nobackup/sarah/Masterarbete/Raw_data/ugc00277_samples/m84045_240413_182816_s2.hifi_reads.bc2086.bam
+D19-01177   PACBIO  NA  m84045_240413_202735_s3 NA  Yes /proj/sens2017554/nobackup/sarah/Masterarbete/Raw_data/ugc00277_samples/m84045_240413_202735_s3.hifi_reads.bc2087.bam
+NA12878 PACBIO  NA  m84045_240413_222650_s4 NA  Yes /proj/sens2017554/nobackup/sarah/Masterarbete/Raw_data/ugc00277_samples/m84045_240413_222650_s4.hifi_reads.bc2088.bam
+NA24385 PACBIO  NA  m84045_240503_121516_s3 NA  Yes /proj/sens2017554/nobackup/sarah/Masterarbete/Raw_data/ugc00288_samples/m84045_240503_181249_s4.hifi_reads.bc2084.bam

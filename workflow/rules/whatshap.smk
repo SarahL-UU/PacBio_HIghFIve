@@ -49,6 +49,7 @@ rule whatshap_stats:
 rule whatshap_haplotag:
     input:
         vcf="{trio}/snp_calling/whatshap/{sample}.{trio}.SNP.indel.phased.vcf.gz",
+        tbi="{trio}/snp_calling/whatshap/{sample}.{trio}.SNP.indel.phased.vcf.gz.tbi",
         bam="{trio}/aligned/pbmm2/{sample}.{trio}.aligned.sorted.bam",
         ref=config.get("reference_files", {}).get("fasta_file", ""),
     output:

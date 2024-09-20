@@ -1,7 +1,7 @@
 rule vep_annotate:
     input:
 	cache=config.get("vep_annotate_params", {}).get("vep_cache", ""),
-        ref=config.get("reference_files", {}).get("fasta_file", ""),
+        fasta=config.get("reference_files", {}).get("fasta_file", ""),
         tbi="{trio}/snp_calling/whatshap/{sample}.{trio}.SNP.indel.phased.sorted.filtered.vcf.gz.tbi",
         vcf="{trio}/snp_calling/whatshap/{sample}.{trio}.SNP.indel.phased.sorted.filtered.vcf.gz",
     output:

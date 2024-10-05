@@ -1,18 +1,22 @@
 #!/bin/bash
 
-#SBATCH -A naiss2024-22-121
+#SBATCH -A sens2017554
 #SBATCH -n 1
 #SBATCH -p core
-#SBATCH -t 00:15:00
+#SBATCH -t 120:00:00
 #SBATCH -o run_pb_highfive.%j.out
 #SBATCH -e run_pb_highfive.%j.err
 
-#module load conda
-source /proj/naiss2024-22-121/nobackup/padraic/pipeline_env/bin/activate
+set -e
+set -u
+set -o pipefail
+
+module load conda
+source activate /proj/sens2017554/nobackup/sarah/Masterarbete/pipeline_env/
 
 module load slurm-drmaa/1.1.4-slurm23.02.5
 
-snakemake --profile profiles/rackham/ \
---configfile config/config_rackham.yaml \
--d /proj/naiss2024-22-121/pb_longread_pipeline/PacBio_HIghFIve/HG002_test \
+snakemake --profile profiles/bianca/ \
+--configfile config/config_bianca.yaml \
+-d Pipeline_results \
 -p

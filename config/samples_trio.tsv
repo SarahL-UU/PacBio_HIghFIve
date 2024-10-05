@@ -1,9 +1,0 @@
-sample	sex	trioid	trio_member
-HG002	male	GIAB_AshkenazimTrio	index
-HG003	male	GIAB_AshkenazimTrio	father
-HG004	female	GIAB_AshkenazimTrio	mother
-D19-02017	unknown	D49374	index
-D19-01175	female	D49374	mother
-D19-01177	male	D49374	father
-NA12878	female	GIAB	index
-

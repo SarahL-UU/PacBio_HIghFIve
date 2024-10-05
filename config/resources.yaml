@@ -7,7 +7,7 @@ default_resources:
 
 fastqc_params:
   threads: 2
-  time: "5:00:00"
+  time: "8:00:00"
 
 pbmm2_align_params:
   threads: 16
@@ -37,6 +37,9 @@ deepvariant_params:
 whatshap_phase_params:
   threads: 4
 
+whatshap_haplotag_params:
+  threads: 4
+
 pbsv_discover_params:
   threads: 16
   time: "48:00:00"
@@ -54,3 +57,23 @@ trgt_genotype_params:
   time: "48:00:00"
   mem_mb: 114688
   mem_per_cpu: 7168
+
+svanna_prioritize_params:
+  threads: 8
+
+whatshap_haplotag_params:
+  threads: 4
+
+svpack_filter_params:
+  threads: 4
+  time: "48:00:00"
+
+sniffles_call_params:
+  threads: 4
+  time: "48:00:00"
+
+vep_annotate_params:
+  threads: 4
+
+paraphase_params:
+  threads: 4

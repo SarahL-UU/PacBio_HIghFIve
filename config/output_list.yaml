@@ -1,89 +1,52 @@
 files:
-  - name: fastqc_bam
-    output: "results/{trio}/{sample}/fastqc/{sample}.{trio}_fastqc.zip"
-    input: "qc/fastqc/{trio}/{sample}/{sample}.{trio}_fastqc.zip"
-  - name: aligned.sorted.bam
-    output: "results/{trio}/{sample}/pbmm2/{sample}.{trio}.aligned.sorted.bam"
-    input: "aligned/{trio}/{sample}.{trio}.aligned.sorted.bam"
-  - name: aligned.sorted.bam.bai
-    output: "results/{trio}/{sample}/pbmm2/{sample}.{trio}.aligned.sorted.bam.bai"
-    input: "aligned/{trio}/{sample}.{trio}.aligned.sorted.bam.bai"
-  - name: mosdepth_global_dist
-    output: "results/{trio}/{sample}/mosdepth/{sample}.{trio}.mosdepth.global.dist.txt"
-    input: "{sample}.{trio}.mosdepth.global.dist.txt"
-  - name: mosdepth_per_base_bed
-    output: "results/{trio}/{sample}/mosdepth/{sample}.{trio}.per-base.bed.gz"
-    input: "{sample}.{trio}.per-base.bed.gz"
-  - name: mosdepth_summary
-    output: "results/{trio}/{sample}/mosdepth/{sample}.{trio}.mosdepth.summary.txt"
-    input: "{sample}.{trio}.mosdepth.summary.txt"
-  - name: mosdepth_region_dist
-    output: "results/{trio}/{sample}/mosdepth/{sample}.{trio}.mosdepth.region.dist.txt"
-    input: "{sample}.{trio}.mosdepth.region.dist.txt"
-  - name: mosdepth_regions_bed
-    output: "results/{trio}/{sample}/mosdepth/{sample}.{trio}.regions.bed.gz"
-    input: "{sample}.{trio}.regions.bed.gz"
-  - name: samtools_stats
-    output: "results/{trio}/{sample}/samtools/{sample}.{trio}.samtools-stats.txt"
-    input: "qc/samtools_stats/{sample}.{trio}.samtools-stats.txt"
-  - name: samtools_flagstat
-    output: "results/{trio}/{sample}/samtools/{sample}.{trio}.samtools-flagstat.txt"
-    input: "qc/samtools_flagstat/{trio}/{sample}.{trio}.samtools-flagstat.txt"
-  - name: samtools_idxstats
-    output: "results/{trio}/{sample}/samtools/{sample}.{trio}.samtools-idxstats.txt"
-    input: "qc/samtools_idxstats/{trio}/{sample}.{trio}.samtools-idxstats.txt"
-  - name: picard_collectalignmentsummarymetrics
-    output: "results/{trio}/{sample}/collectalignmentsummarymetrics/{sample}.{trio}.aligned.sorted.bam.summary.txt"
-    input: "qc/picard/collectalignmentsummarymetrics/{trio}/{sample}.{trio}.aligned.sorted.bam.summary.txt"
-  - name: picard_collectgcbiasmetrics_metrics
-    output: "results/{trio}/{sample}/picard/collectgcbiasmetrics/{sample}.{trio}.aligned.sorted.bam.gcmetrics.txt"
-    input: "qc/picard/collectgcbiasmetrics/{trio}/{sample}.{trio}.aligned.sorted.bam.gcmetrics.txt"
-  - name: picard_collectgcbiasmetrics_chart
-    output: "results/{trio}/{sample}/picard/collectgcbiasmetrics/{sample}.{trio}.aligned.sorted.bam.gc.pdf"
-    input: "qc/picard/collectgcbiasmetrics/{trio}/{sample}.{trio}.aligned.sorted.bam.gc.pdf"
-  - name: picard_collectgcbiasmetrics_summary
-    output: "results/{trio}/{sample}/picard/collectgcbiasmetrics/{sample}.{trio}.aligned.sorted.bam.summary.txt"
-    input: "qc/picard/collectgcbiasmetrics/{trio}/{sample}.{trio}.aligned.sorted.bam.summary.txt"
-  - name: somalier_extract
-    output: "results/{trio}/{sample}/somalier/extract/{sample}.{trio}.somalier"
-    input: "qc/somalier/extract/{trio}/{sample}.{trio}.somalier"
-  - name: somalier_relate_sample
-    output: "results/{trio}/somalier/{trio}.samples.tsv"
-    input: "qc/somalier/relate/{trio}/{trio}.samples.tsv"
-  - name: somalier_relate_pairs
-    output: "results/{trio}/somalier/{trio}.pairs.tsv"
-    input: "qc/somalier/relate/{trio}/{trio}.pairs.tsv"
-  - name: somalier_relate_groups
-    output: "results/{trio}/somalier/{trio}.groups.tsv"
-    input: "qc/somalier/relate/{trio}/{trio}.groups.tsv"
-  - name: somalier_relate_html
-    output: "results/{trio}/somalier/{trio}.html"
-    input: "qc/somalier/relate/{trio}/{trio}.html"
   - name: multiqc_html
-    output: "results/{trio}/multiqc/multiqc_{trio}.html"
-    input: "qc/multiqc/{trio}/multiqc_{trio}.html"
-  - name: deepvariant_gz
-    output: "results/{trio}/{sample}/deepvariant/{sample}.{trio}.SNP.indel.vcf.gz"
-    input: "snp_calling/deepvariant/{trio}/{sample}.{trio}.SNP.indel.vcf.gz"
+    output: "{trio}/results/qc/multiqc_{trio}.html"
+    input: "{trio}/qc/multiqc/multiqc_{trio}.html"
   - name: whatshap_phase
-    output: "results/{trio}/{sample}/whatshap/{sample}.{trio}.SNP.indel.phased.vcf"
-    input: "snp_calling/whatshap/{trio}/{sample}.{trio}.SNP.indel.phased.vcf"
-  - name: whatshap_stats
-    output: "results/{trio}/{sample}/whatshap/{sample}.{trio}.SNP.indel.phased.vcf.stats.tsv"
-    input: "snp_calling/whatshap/{trio}/{sample}.{trio}.SNP.indel.phased.vcf.stats.tsv"
-  - name: bcftools_stats
-    output: "results/{trio}/{sample}/bcftools/{sample}.{trio}.SNP.indel.vcf.stats"
-    input: "qc/bcftools/{trio}/{sample}.{trio}.SNP.indel.vcf.stats"
+    output: "{trio}/results/SNPs_indels/{sample}.{trio}.SNP.indel.phased.vcf"
+    input: "{trio}/snp_calling/whatshap/{sample}.{trio}.SNP.indel.phased.vcf"
+  - name: whatshap_haplotag
+    output: "{trio}/results/Bam-files/{sample}.{trio}.aligned.sorted.haplotagged.bam"
+    input: "{trio}/aligned/{sample}.{trio}.aligned.sorted.haplotagged.bam"
+  - name: bcftools_sort
+    output: "{trio}/results/SNPs_indels/{sample}.{trio}.SNP.indel.phased.sorted.vcf.gz"
+    input: "{trio}/snp_calling/whatshap/{sample}.{trio}.SNP.indel.phased.sorted.vcf.gz"
+  - name: bcftools_filter_snp
+    output: "{trio}/results/SNPs_indels/{sample}.{trio}.SNP.indel.phased.sorted.filtered.vcf.gz"
+    input: "{trio}/snp_calling/whatshap/{sample}.{trio}.SNP.indel.phased.sorted.filtered.vcf.gz"
+  - name: bcftools_filter_sv
+    output: "{trio}/results/SVs/{sample}.{trio}.haplotagged.sv.sorted.filtered.vcf.gz"
+    input: "{trio}/sv_calling/pbsv/{sample}.{trio}.haplotagged.sv.sorted.filtered.vcf.gz"
   - name: pbsv_discover
-    output: "results/{trio}/{sample}/pbsv/{sample}.{trio}.svsig.gz"
-    input: "sv_calling/pbsv/{trio}/{sample}.{trio}.svsig.gz"
+    output: "results/{trio}/{sample}/pbsv/{sample}.{trio}.haplotagged.svsig.gz"
+    input: "sv_calling/pbsv/{trio}/{sample}.{trio}.haplotagged.svsig.gz"
   - name: pbsv_call
-    output: "results/{trio}/{sample}/pbsv/{sample}.{trio}.sv.vcf"
-    input: "sv_calling/pbsv/{trio}/{sample}.{trio}.sv.vcf"
+    output: "{trio}/results/SVs/{sample}.{trio}.haplotagged.sv.vcf"
+    input: "{trio}/sv_calling/pbsv/{sample}.{trio}.haplotagged.sv.vcf"
   - name: trgt_genotype_vcf
-    output: "results/{trio}/{sample}/trgt/{sample}.{trio}.trgt.vcf.gz"
-    input: "repeat_calling/trgt/{sample}.{trio}.trgt.vcf.gz"
+    output: "{trio}/results/repeat_expansion/{sample}.{trio}.trgt.haplotagged.vcf.gz"
+    input: "{trio}/repeat_calling/trgt/{sample}.{trio}.trgt.haplotagged.vcf.gz"
   - name: trgt_genotype_bam
-    output: "results/{trio}/{sample}/trgt/{sample}.{trio}.trgt.spanning.bam"
-    input: "repeat_calling/trgt/{sample}.{trio}.trgt.spanning.bam"
-
+    output: "{trio}/results/repeat_expansion/{sample}.{trio}.trgt.haplotagged.spanning.bam"
+    input: "{trio}/repeat_calling/trgt/{sample}.{trio}.trgt.haplotagged.spanning.bam"
+  - name: tabix_index
+    output: "{trio}/results/SNPs_indels/{sample}.{trio}.SNP.indel.phased.vcf.gz.tbi"
+    input: "{trio}/snp_calling/whatshap/{sample}.{trio}.SNP.indel.phased.vcf.gz.tbi"
+  - name: svanna_prioritize_html
+    output: "{trio}/results/SVs/{sample}.{trio}.haplotagged.sv.sorted.svpack.SVANNA.html"
+    input: "{trio}/sv_calling/svanna/{sample}.{trio}.haplotagged.sv.sorted.svpack.SVANNA.html"
+  - name: svpack_filter
+    output: "{trio}/results/SVs/{sample}.{trio}.haplotagged.sv.sorted.svpack.vcf.gz"
+    input: "{trio}/sv_calling/svpack/{sample}.{trio}.haplotagged.sv.sorted.svpack.vcf.gz"
+  - name: sniffles_call
+    output: "{trio}/results/SVs/{sample}.{trio}.sv.haplotagged.sniffles.vcf.gz"
+    input: "{trio}/sv_calling/sniffles/{sample}.{trio}.sv.haplotagged.sniffles.vcf.gz"
+  - name: svpack_filter_sniffles
+    output: "{trio}/results/SVs/{sample}.{trio}.sv.haplotagged.sniffles.svpack.vcf.gz"
+    input: "{trio}/sv_calling/sniffles/{sample}.{trio}.sv.haplotagged.sniffles.svpack.vcf.gz"
+  - name: vep_annotate
+    output: "{trio}/results/SNPs_indels/{sample}.{trio}.SNP.indel.phased.sorted.filtered.annotated.vcf.gz"
+    input: "{trio}/snp_calling/whatshap/{sample}.{trio}.SNP.indel.phased.sorted.filtered.annotated.vcf.gz"
+  - name: paraphase
+    output: "{trio}/results/cnv_calling/{sample}.{trio}.cnv.paraphase.json"
+    input: "{trio}/cnv_calling/paraphase/{sample}.{trio}.cnv.paraphase.json"

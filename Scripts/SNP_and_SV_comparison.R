@@ -5,45 +5,18 @@ install.packages("VennDiagram")
 library(readr)
 library(VennDiagram)
 
-############# PLAN ##################
-# 1. Generate VCF files of unique variants and variants in common. 
-# 2. Count variants in each and make a Venn-diagram
-
-########
-
-# records private to  first.vcf.gz
-cat first_second/0000.vcf | grep -v "^#" | wc -l
-70529
-
-# records private to  second.vcf.gz
-cat first_second/0001.vcf | grep -v "^#" | wc -l
-70017
-
-# records from first.vcf.gz shared by both    first.vcf.gz second.vcf.gz
-cat first_second/0002.vcf | grep -v "^#" | wc -l
-70350
-
-# records from second.vcf.gz shared by both   first.vcf.gz second.vcf.gz
-cat first_second/0003.vcf | grep -v "^#" | wc -l
-70350
-
-#######
-
-# 3. Plot for ex Chr1 all variants with their positions on the X axis.
-# 3.5 Divide the chromosome into ex 1000 bp (might need to be bigger) blocks and make histogram with is (see notes)
-
 ###### D36117 ######### 
 #Load files, load all columns as characters, not double
-Unique_SR_46863 <- read_delim("~/46863.D36117.SNP.indel.PASS/0000.vcf", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
+Unique_SR_46863 <- read_delim("~/Family2.SNP.indel.PASS/0000.vcf", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
 #Rows: 237360 Columns: 10 
 
-Unique_LR_46863 <- read_delim("~/46863.D36117.SNP.indel.PASS/0001.vcf", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
+Unique_LR_46863 <- read_delim("~/Family2.SNP.indel.PASS/0001.vcf", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
 #Rows: 4491656 Columns: 10 
 
-Common_SR_46863 <- read_delim("~/46863.D36117.SNP.indel.PASS/0002.vcf", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
+Common_SR_46863 <- read_delim("~/Family2.SNP.indel.PASS/0002.vcf", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
 #Rows: 121363 Columns: 10  
 
-Common_LR_46863 <- read_delim("~/46863.D36117.SNP.indel.PASS/0003.vcf", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
+Common_LR_46863 <- read_delim("~/Family2.SNP.indel.PASS/0003.vcf", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
 #Rows: 121363 Columns: 10 
 
 #Combine CHROM and POS column to create a unique identifier for each variant
@@ -76,16 +49,16 @@ grid.draw(venn.plot)
 
 ##### D49374 ######
 #Load files, load all columns as characters, not double
-Unique_SR_D19_02017 <- read_delim("~/D19-02017.D49374.SNP.indel.PASS/0000.vcf", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
+Unique_SR_D19_02017 <- read_delim("~/Family1.SNP.indel.PASS/0000.vcf", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
 #Rows: 237360 Columns: 10 
 
-Unique_LR_D19_02017 <- read_delim("~/D19-02017.D49374.SNP.indel.PASS/0001.vcf", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
+Unique_LR_D19_02017 <- read_delim("~/Family1.SNP.indel.PASS/0001.vcf", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
 #Rows: 4491656 Columns: 10 
 
-Common_SR_D19_02017 <- read_delim("~/D19-02017.D49374.SNP.indel.PASS/0002.vcf", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
+Common_SR_D19_02017 <- read_delim("~/Family1.SNP.indel.PASS/0002.vcf", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
 #Rows: 121363 Columns: 10  
 
-Common_LR_D19_02017 <- read_delim("~/D19-02017.D49374.SNP.indel.PASS/0003.vcf", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
+Common_LR_D19_02017 <- read_delim("~/Family1.SNP.indel.PASS/0003.vcf", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
 #Rows: 121363 Columns: 10 
 
 #Combine CHROM and POS column to create a unique identifier for each variant
@@ -118,16 +91,16 @@ grid.draw(venn.plot)
 
 ###### D36117 SV ######### 
 #Load files, load all columns as characters, not double
-Unique_SR_46863 <- read_delim("~/46863.D36117.sv/0001.vcf", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
+Unique_SR_46863 <- read_delim("~/Family2.sv/0001.vcf", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
 #Rows: 140987 Columns: 8 
 
-Unique_LR_46863 <- read_delim("~/46863.D36117.sv/0000.vcf", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
+Unique_LR_46863 <- read_delim("~/Family2.sv/0000.vcf", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
 #Rows: 37249 Columns: 10 
 
-Common_SR_46863 <- read_delim("~/46863.D36117.sv/0002.vcf", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
+Common_SR_46863 <- read_delim("~/Family2.sv/0002.vcf", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
 #Rows: 13245 Columns: 10  
 
-Common_LR_46863 <- read_delim("~/46863.D36117.sv/0003.vcf", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
+Common_LR_46863 <- read_delim("~/Family2.sv/0003.vcf", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
 #Rows: 13245 Columns: 8
 
 #Combine CHROM and POS column to create a unique identifier for each variant
@@ -160,16 +133,16 @@ grid.draw(venn.plot)
 
 ##### D49374 SV ######
 #Load files, load all columns as characters, not double
-Unique_SR_D19_02017 <- read_delim("~/D19-02017.D49374.SNP.indel.PASS/0000.vcf", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
+Unique_SR_D19_02017 <- read_delim("~/Family1.sv/0000.vcf", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
 #Rows: 237360 Columns: 10 
 
-Unique_LR_D19_02017 <- read_delim("~/D19-02017.D49374.SNP.indel.PASS/0001.vcf", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
+Unique_LR_D19_02017 <- read_delim("~/Family1.sv/0001.vcf", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
 #Rows: 4491656 Columns: 10 
 
-Common_SR_D19_02017 <- read_delim("~/D19-02017.D49374.SNP.indel.PASS/0002.vcf", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
+Common_SR_D19_02017 <- read_delim("~/Family1.sv/0002.vcf", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
 #Rows: 121363 Columns: 10  
 
-Common_LR_D19_02017 <- read_delim("~/D19-02017.D49374.SNP.indel.PASS/0003.vcf", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
+Common_LR_D19_02017 <- read_delim("~/Family1.sv/0003.vcf", delim = "\t", escape_double = FALSE, trim_ws = TRUE)
 #Rows: 121363 Columns: 10 
 
 #Combine CHROM and POS column to create a unique identifier for each variant

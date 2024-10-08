@@ -1,6 +1,6 @@
 #Load excel file with results from Hap.py
 library(readxl)
-Old_benchmark <- read_excel("~/Desktop/Old_benchmark.xlsx")
+Happy_summary <- read_excel("~/Desktop/Happy_summary.xlsx")
 
 #Rename the column for the metrics
 colnames(Happy_summary)[12] <- "Recall"
@@ -16,7 +16,7 @@ colnames(New_SNP) <- c("Recall_SNP", "Precision_SNP", "F1_Score_SNP")
 New_subset <- cbind(New_SNP, New_INDEL)
 
 #Create a barplot
-New_samples <- c("HG002", "HG003", "HG004", "NA12828", "NA24385")
+Samples <- c("HG002", "HG003", "HG004", "NA12828", "NA24385")
 New_data <- Happy_summary[, c("Recall", "Precision", "F1_Score")]
 
 par(mar = c(5, 5, 4, 11))
@@ -38,11 +38,4 @@ legend(x = "topright",
        cex = 1)
 
 args.legend = list(x = 28, y = 1, cex = 0.8),
-
-#Nice Hex codes: 
-c("#B85042", "#E7E8D1", "#A7BEAE"),
-c("#962E2A", "#E3867D", "#CEE6F2")
-c("#2A3132", "#763626", "#90AFC5")
-c("#1995AD", "#A1D6E2", "#375E97", "#FB6542", "#FFBB00", "#A1BE95", "#F98866")
-c("#2C5F2D", "#97BC62")
 
